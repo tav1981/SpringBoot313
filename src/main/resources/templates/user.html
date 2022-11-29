@@ -1,0 +1,39 @@
+
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+<h1>Welcome to User PAGE!</h1>
+<p th:text="${users.getUsername()}"></p>
+
+
+<table class="table table-dark">
+    <thead>
+    <tr>
+        <th scope="col">FirstName</th>
+
+        <th scope="col">Email</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr >
+        <td th:text="${users.getUsername()}"/>
+
+        <td th:text="${users.getEmail()}"/>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+    <a href="/logout">выйти</a>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+
+create table users (
+id bigint AUTO_INCREMENT,
+username varchar(30) not null,
+password varchar(80),
+email varchar(50) UNIQUE,
+primary key (id)
+);
+
+create table roles (
+id bigint AUTO_INCREMENT,
+name varchar(30) not null,
+primary key (id)
+);
+
+create table users_roles (
+user_id bigint not null,
+role_id bigint not null,
+primary key (user_id, role_id),
+foreign key (user_id) references users (id),
+foreign key (role_id) references roles (id)
+);
+
+insert into roles (id, name)
+values
+('1', 'ROLE_USER'), ('2', 'ROLE_ADMIN');
+
+insert into users (username, password, email)
+values
+('user', '{bcrypt}$2a$12$3wPBKUx5eYtcC1kXH77gG.DOv.7sfmdupkXL07Zf9TE7X2Wo3mdXu', 'user@mail.ru'), ('admin', '{bcrypt}$2a$12$vEEEzP8wE.XlEK0anVILZuTrfVDXAKXWYtEJMxPEKPk8gyPyxgsaq', 'admin@mail.ru');
+
+insert into users_roles (user_id, role_id)
+values
+('1', '1'), ('2', '2');
+
+---------------------------------------------------------------
+//Пароль для User - 1, для Admin - 2

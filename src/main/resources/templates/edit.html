@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Изменение пользователей</title>
+</head>
+<body>
+<form action="#" th:action="@{/admin/edit}" th:object="${user}" method="post" target="_self">
+  <div>
+    <label>Введите новые данные:</label>
+    <br>
+    <label for="username">Фамилия</label>
+    <input name="username" id="username" th:value="${user.getUsername()}" required>
+    <!--<label for="lastName">Имя</label>
+    <input name="lastName" id="lastName" th:value="${user.getLastName()}">-->
+    <label for="email">Почта</label>
+    <input name="email" id="email" th:value="${user.getEmail()}" >
+    <label for="email">Пароль</label>
+    <input name="password" id="password" th:value="${user.getPassword()}" >
+    <br>
+    <label for="roles">Роли</label>
+    <select name="roles" size="3" id="roles" multiple>
+      <option th:each="role : ${roles}" th:text="${role.getName()}" th:value="${role.getId()}" />
+    </select>
+    <input type="hidden" name="id" id="id" th:value="${user.getId()}" >
+
+  </div>
+
+  <div>
+    <button>готово</button>
+  </div>
+</form>
+</body>
+</html>

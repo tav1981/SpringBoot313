@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>пользователи</title>
+</head>
+<body>
+
+<table class="table table-dark">
+    <thead>
+    <tr>
+        <th scope="col">FirstName</th>
+        <!--<th scope="col">LastName</th>-->
+        <th scope="col">Email</th>
+
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getUsername()}"/>
+       <!-- <td th:text="${user.getLastName()}"/>-->
+        <td th:text="${user.getEmail()}"/>
+
+        <td>
+            <!--<td><a th:href="@{edit/{id}(id=${user.id})}">Edit</a></td>-->
+        <td><form th:action="@{admin/edit/{id}(id=${user.id})}" target="_self" >
+            <div>
+                <button >редактировать</button>
+            </div>
+        </form>
+        </td>
+        </td>
+        <td>
+            <form th:action="@{admin/delete/{id}(id=${user.id})}" target="_self" >
+                <div>
+                    <button>x</button>
+                </div>
+            </form>
+        </td>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<form action="admin/add" target="_self" >
+    <div>
+        <button name="newPole" id="newPole" value="1" >+</button>
+    </div>
+</form>
+<td><a href="/logout">выйти</a></td>
+</body>
+
+</html>

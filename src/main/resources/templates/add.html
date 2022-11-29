@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Добавление пользователей</title>
+</head>
+<body>
+<form  th:action="@{/admin/add}"  method="post" >
+  <div>
+    <label>Ведите новые данные:</label>
+    <br>
+    <label for="username">Фамилия</label>
+    <input type="text"  id="username" placeholder="First Name" name="username">
+    <!--<label for="lastName">Имя</label>
+    <input type="text"  id="lastName" placeholder="Last Name" name="lastName">-->
+    <label for="email">Почта</label>
+    <input type="text"  placeholder="email" name="email" id="email" >
+    <label for="password">Пароль</label>
+    <input type="text"  placeholder="password" name="password" id="password" >
+    <br>
+    <label for="password">Роль</label>
+    <br>
+
+    <select name="roles" size="3" id="roles" multiple>
+      <option th:each="role : ${roles}" th:text="${role.getName()}" th:value="${role.getId()}" />
+    </select>
+
+  </div>
+
+  <div>
+    <button>готово</button>
+  </div>
+</form>
+</body>
+</html>
