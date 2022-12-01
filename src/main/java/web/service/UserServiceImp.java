@@ -1,23 +1,18 @@
 package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import web.model.Role;
 import web.model.User;
 import web.repository.UserRepository;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-@Service("userDetailsServiceImpl")
-@Transactional
+@Service
+//@Transactional
 public class UserServiceImp implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
@@ -52,23 +47,24 @@ public class UserServiceImp implements UserService, UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
+    public User findByIdFetchUser(Long id) {
+        return userRepository.findByIdFetchUser(id);
+    }
+
     @Override
     public void edit(Long Id, User user) {
         userRepository.save(user);
     }
 
     @Override
-    //@Transactional
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = this.findByUsername(username);
+
         if (user == null) {
             throw new UsernameNotFoundException(String.format("Пользователь '%s' не найден", username));
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
-    }
 
-    private Set<? extends GrantedAuthority> mapRolesToAuthorities (Set<Role> roles) {
-        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toSet());
+        return this.findByIdFetchUser(user.getId());
     }
-
 }
