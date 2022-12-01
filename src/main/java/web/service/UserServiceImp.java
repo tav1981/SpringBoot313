@@ -44,11 +44,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    public User findByIdFetchUser(Long id) {
-        return userRepository.findByIdFetchUser(id);
+        return userRepository.findByNameFetchUser(username);
     }
 
     @Override
@@ -65,6 +61,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
             throw new UsernameNotFoundException(String.format("Пользователь '%s' не найден", username));
         }
 
-        return this.findByIdFetchUser(user.getId());
+        return user;
     }
 }

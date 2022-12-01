@@ -8,8 +8,8 @@ import web.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findByUsername(String username);
+    //User findByUsername(String username);
 
-    @Query("select c from User c join fetch c.roles where c.id = :id")
-    User findByIdFetchUser(@Param("id") Long id);
+    @Query("select c from User c join fetch c.roles where c.username = :username")
+    User findByNameFetchUser(@Param("username") String username);
 }
